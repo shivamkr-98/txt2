@@ -39,9 +39,9 @@ bot = Client(
     bot_token=BOT_TOKEN
 )
 
-API_ID    = os.environ.get("API_ID", "9972455")
-API_HASH  = os.environ.get("API_HASH", "5b1fd83b698e4e6670f3dcb053eecc06")
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "7514763288:AAEX9mqSxrwtICSGz3qf_i-deB2xTAZM9gs") 
+API_ID    = os.environ.get("API_ID", "28996064")
+API_HASH  = os.environ.get("API_HASH", "e09920a63e5f157b85a64ddba66596c6")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "8155433245:AAGVNb9qUsysU06AO2TWJVdWDjmIc7ESUJI") 
 
 # Define aiohttp routes
 routes = web.RouteTableDef()
