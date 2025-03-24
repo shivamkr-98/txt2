@@ -162,16 +162,14 @@ async def cookies_handler(client: Client, m: Message):
 async def moni_handler(client: Client, m: Message):
     if m.chat.type == "private":
         user_id = str(m.from_user.id)
-            return
-    else:
-        channels = read_channels_data()
-            return
-            
-    editable = await m.reply_text('𝐓𝐨 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐀 𝐓𝐱𝐭 𝐅𝐢𝐥𝐞 𝐒𝐞𝐧𝐝 𝐇𝐞𝐫𝐞 ⏍')
+        return  # Ensure you want to stop execution for private chats
+    
+    # Remove the else block and let the function continue
+    editable = await m.reply_text("To Download A Txt File Send Here 📂")
 
     try:
         input: Message = await client.listen(editable.chat.id)
-        
+
         # Check if the message contains a document and is a .txt file
         if not input.document or not input.document.file_name.endswith('.txt'):
             await m.reply_text("Please send a valid .txt file.")
@@ -183,7 +181,7 @@ async def moni_handler(client: Client, m: Message):
 
         path = f"./downloads/{m.chat.id}"
         file_name = os.path.splitext(os.path.basename(x))[0]
-
+        
         # Read and process the file
         with open(x, "r") as f:
             content = f.read().strip()
