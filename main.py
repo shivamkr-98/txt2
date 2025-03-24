@@ -181,7 +181,7 @@ async def moni_handler(client: Client, m: Message):
 
         path = f"./downloads/{m.chat.id}"
         file_name = os.path.splitext(os.path.basename(x))[0]
-        
+
         # Read and process the file
         with open(x, "r") as f:
             content = f.read().strip()
@@ -204,6 +204,15 @@ async def moni_handler(client: Client, m: Message):
         if os.path.exists(x):
             os.remove(x)
 
+# Check if the file contains master.mpd links
+    has_master_mpd = any("/master.mpd" in link[1] for link in links)
+
+    if has_master_mpd:
+        await editable.edit("**𝑵𝒐𝒘 𝒔𝒆𝒏𝒅 𝒚𝒐𝒖𝒓 𝑷𝑾 𝒖𝒔𝒆𝒍𝒆𝒔𝒔 𝒂𝒄𝒕𝒊𝒗𝒆 𝒕𝒐𝒌𝒆𝒏.**")
+        token_input: Message = await bot.listen(editable.chat.id)
+        token = token_input.text
+        await token_input.delete(True)
+        
     await editable.edit(f"∝ 𝐓𝐨𝐭𝐚𝐥 𝐋𝐢𝐧𝐤 𝐅𝐨𝐮𝐧𝐝 𝐀𝐫𝐞 🔗** **{len(links)}**\n\n𝐒𝐞𝐧𝐝 𝐅𝐫𝐨𝐦 𝐖𝐡𝐞𝐫𝐞 𝐘𝐨𝐮 𝐖𝐚𝐧𝐭 𝐓𝐨 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐈𝐧𝐢𝐭𝐚𝐥 𝐢𝐬 **1**")
     input0: Message = await bot.listen(editable.chat.id)
     raw_text = input0.text
@@ -280,7 +289,7 @@ async def moni_handler(client: Client, m: Message):
         count = 1
     else:
         count = int(raw_text)
-
+    
     try:
         # Assuming links is a list of lists and you want to process the second element of each sublist    
         for i in range(count - 1, len(links)):
@@ -306,9 +315,11 @@ async def moni_handler(client: Client, m: Message):
             elif 'videos.classplusapp' in url or "tencdn.classplusapp" in url or "webvideos.classplusapp.com" in url or "media-cdn-alisg.classplusapp.com" in url or "videos.classplusapp" in url or "videos.classplusapp.com" in url or "media-cdn-a.classplusapp" in url or "media-cdn.classplusapp" in url or "drmcdni" in url:
              url = requests.get(f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}', headers={'x-access-token': 'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgzNjkyMTIsIm9yZ0lkIjoyNjA1LCJ0eXBlIjoxLCJtb2JpbGUiOiI5MTcwODI3NzQyODkiLCJuYW1lIjoiQWNlIiwiZW1haWwiOm51bGwsImlzRmlyc3RMb2dpbiI6dHJ1ZSwiZGVmYXVsdExhbmd1YWdlIjpudWxsLCJjb3VudHJ5Q29kZSI6IklOIiwiaXNJbnRlcm5hdGlvbmFsIjowLCJpYXQiOjE2NDMyODE4NzcsImV4cCI6MTY0Mzg4NjY3N30.hM33P2ai6ivdzxPPfm01LAd4JWv-vnrSxGXqvCirCSpUfhhofpeqyeHPxtstXwe0'}).json()['url']
 
-            elif '/master.mpd' in url:
-             id =  url.split("/")[-2]
-             url =  "https://d26g5bnklkwsh4.cloudfront.net/" + id + "/master.m3u8"
+            elif "/master.mpd" in V:
+                video_id = V.split("/")[-2]  # Extract video_id from URL
+                url = f"https://madxapi-d0cbf6ac738c.herokuapp.com/{video_id}/master.m3u8?token={token}"
+            else:
+                url = "https://" + V
 
             name1 = links[i][0].replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@", "").replace("*", "").replace(".", "").replace("https", "").replace("http", "").strip()
             name = f'{str(count).zfill(3)}) {name1[:60]}'
