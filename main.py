@@ -317,7 +317,7 @@ async def moni_handler(client: Client, m: Message):
 
             elif "/master.mpd" in V:
                 video_id = V.split("/")[-2]  # Extract video_id from URL
-                url = f"https://madxapi-d0cbf6ac738c.herokuapp.com/{video_id}/master.m3u8?token={token}"
+                url = f"https://anonymouspwplayer-b99f57957198.herokuapp.com/pw?url=https://d1d34p8vz63oiq.cloudfront.net/{video_id}/master.mpd?token={token}"
             else:
                 url = "https://" + V
 
